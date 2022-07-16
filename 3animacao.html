@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bola pulsando</title>
+</head>
+<body>
+    <canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, 600, 400);
+
+    function desenhaCirculo(x, y, raio) {
+
+        pincel.fillStyle = 'red';
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+    // raio de 20 até 30 (raio++(até chegar à 30))
+    // se raio > 30 (raio = raio -1)
+    // se raio < 20 (raio++(até chegar à 30))
+    // 20 milissegundos na taxa de atualização da tela.
+    function limpaTela() {
+
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    var raio = 10;
+    var raioFinal = 50;
+
+    var fatorCrescimento = 0;
+
+    function atualizaTela(){
+
+        limpaTela();
+
+        if(raio > raioFinal){
+            raio = raio -1 // o raio diminui
+            fatorCrescimento = -1
+        }else if(raio < 20){
+            raio++ // o raio aumenta
+            fatorCrescimento = 1
+        }
+
+        desenhaCirculo(200, 200, raio);
+        raio = raio + fatorCrescimento;
+    }
+
+    // Recebe o parametro da função e também quantos milisegundos deve andar
+    setInterval(atualizaTela, 20);
+
+</script>
+</body>
+</html>
